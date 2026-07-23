@@ -1,5 +1,7 @@
 "use client";
 
+import { UserSessionProvider } from "@/entities/user";
+
 export function Providers({ children }: { children: React.ReactNode }) {
-  return children;
+  return <UserSessionProvider>{children}</UserSessionProvider>;
 }
