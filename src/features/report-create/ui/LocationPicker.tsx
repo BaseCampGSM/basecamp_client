@@ -25,7 +25,9 @@ export function LocationPicker({
 
   const applyCoords = async (next: Coordinates, fallbackAddress?: string) => {
     const resolvedAddress =
-      fallbackAddress ?? (await reverseGeocode(next)) ?? "주소를 확인할 수 없습니다";
+      fallbackAddress ??
+      (await reverseGeocode(next)) ??
+      "주소를 확인할 수 없습니다";
     onChange(next, resolvedAddress);
   };
 

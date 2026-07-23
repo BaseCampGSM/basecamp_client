@@ -31,7 +31,7 @@ export function reverseGeocode(coords: Coordinates): Promise<string | null> {
         resolve(
           result[0].road_address?.address_name ??
             result[0].address?.address_name ??
-            null
+            null,
         );
       } else {
         resolve(null);

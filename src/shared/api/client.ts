@@ -16,7 +16,7 @@ type ApiFetchOptions = Omit<RequestInit, "body"> & {
 
 export async function apiFetch<T>(
   path: string,
-  { body, headers, ...init }: ApiFetchOptions = {}
+  { body, headers, ...init }: ApiFetchOptions = {},
 ): Promise<T> {
   const requestHeaders = new Headers(headers);
   requestHeaders.set("Content-Type", "application/json");

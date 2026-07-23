@@ -3,7 +3,7 @@ import type { NearbyPlace, Recommendation } from "../model/types";
 
 export function getRecommendations(reportId: string) {
   return apiFetch<Recommendation[]>(
-    `/api/v1/recommendations?report_id=${encodeURIComponent(reportId)}`
+    `/api/v1/recommendations?report_id=${encodeURIComponent(reportId)}`,
   );
 }
 

@@ -26,7 +26,10 @@ export function ReportForm() {
   const isSubmitting = step !== "idle";
   const canSubmit = text.trim().length > 0 && coords !== null && !isSubmitting;
 
-  const handleLocationChange = (nextCoords: Coordinates, nextAddress: string) => {
+  const handleLocationChange = (
+    nextCoords: Coordinates,
+    nextAddress: string,
+  ) => {
     setCoords(nextCoords);
     setAddress(nextAddress);
   };

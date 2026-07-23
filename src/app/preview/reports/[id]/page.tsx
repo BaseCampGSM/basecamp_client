@@ -66,7 +66,9 @@ export default async function PreviewReportDetailPage({
             {formatDate(report.created_at)}
           </span>
         </div>
-        <p className="whitespace-pre-line text-sm text-foreground">{report.text}</p>
+        <p className="whitespace-pre-line text-sm text-foreground">
+          {report.text}
+        </p>
       </Card>
 
       <Card className="flex flex-col gap-3">
@@ -77,7 +79,9 @@ export default async function PreviewReportDetailPage({
       </Card>
 
       <Card className="flex flex-col gap-4">
-        <h2 className="text-sm font-semibold text-foreground">추천 시설·정책</h2>
+        <h2 className="text-sm font-semibold text-foreground">
+          추천 시설·정책
+        </h2>
 
         {recommendations.length === 0 ? (
           <EmptyState title="추천 정보를 찾지 못했어요" />

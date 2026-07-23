@@ -7,7 +7,7 @@ export function Spinner({ className }: { className?: string }) {
       aria-label="로딩 중"
       className={cn(
         "inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent text-accent",
-        className
+        className,
       )}
     />
   );

@@ -55,12 +55,12 @@ declare global {
       function addListener(
         target: object,
         type: string,
-        handler: (...args: never[]) => void
+        handler: (...args: never[]) => void,
       ): void;
       function removeListener(
         target: object,
         type: string,
-        handler: (...args: never[]) => void
+        handler: (...args: never[]) => void,
       ): void;
     }
 
@@ -96,12 +96,12 @@ declare global {
       class Geocoder {
         addressSearch(
           address: string,
-          callback: (result: AddressSearchResult[], status: Status) => void
+          callback: (result: AddressSearchResult[], status: Status) => void,
         ): void;
         coord2Address(
           lng: number,
           lat: number,
-          callback: (result: Coord2AddressResult[], status: Status) => void
+          callback: (result: Coord2AddressResult[], status: Status) => void,
         ): void;
       }
 
@@ -109,7 +109,7 @@ declare global {
         keywordSearch(
           keyword: string,
           callback: (result: PlacesSearchResult[], status: Status) => void,
-          options?: { location?: LatLng; radius?: number }
+          options?: { location?: LatLng; radius?: number },
         ): void;
       }
     }

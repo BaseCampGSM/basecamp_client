@@ -27,7 +27,7 @@ export function useKakaoLoader() {
   const [error, setError] = useState<string | null>(() =>
     env.kakaoJsKey
       ? null
-      : "카카오맵 JavaScript 키가 설정되지 않았습니다 (.env.local 확인)."
+      : "카카오맵 JavaScript 키가 설정되지 않았습니다 (.env.local 확인).",
   );
 
   useEffect(() => {

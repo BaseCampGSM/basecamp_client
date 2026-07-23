@@ -71,7 +71,8 @@ export const MOCK_REPORT_DETAIL: Record<string, ReportDetail> = {
     text: "동네 놀이터 그네가 고장나서 위험해 보여요",
     category: "안전·시설",
     urgency: "MEDIUM",
-    solution: "AI가 관련 공공데이터를 분석하고 있어요. 잠시 후 다시 확인해 주세요.",
+    solution:
+      "AI가 관련 공공데이터를 분석하고 있어요. 잠시 후 다시 확인해 주세요.",
     sources: [],
     created_at: "2026-07-15T11:05:00+09:00",
   },

@@ -45,7 +45,7 @@ export function KakaoMap({
   useEffect(() => {
     if (!mapRef.current) return;
     mapRef.current.setCenter(
-      new window.kakao.maps.LatLng(center.lat, center.lng)
+      new window.kakao.maps.LatLng(center.lat, center.lng),
     );
   }, [center.lat, center.lng]);
 
@@ -58,16 +58,12 @@ export function KakaoMap({
       onClick({ lat: latlng.getLat(), lng: latlng.getLng() });
     };
 
-    window.kakao.maps.event.addListener(
-      map,
-      "click",
-      handleClick as never
-    );
+    window.kakao.maps.event.addListener(map, "click", handleClick as never);
     return () => {
       window.kakao.maps.event.removeListener(
         map,
         "click",
-        handleClick as never
+        handleClick as never,
       );
     };
   }, [onClick, isLoaded]);
@@ -93,7 +89,7 @@ export function KakaoMap({
         window.kakao.maps.event.addListener(
           kakaoMarker,
           "dragend",
-          handleDragEnd as never
+          handleDragEnd as never,
         );
       }
 
@@ -110,7 +106,7 @@ export function KakaoMap({
       <div
         className={cn(
           "flex items-center justify-center rounded-xl border border-border bg-muted-bg text-sm text-muted",
-          className
+          className,
         )}
       >
         {error}

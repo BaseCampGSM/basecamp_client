@@ -115,9 +115,7 @@ export function ReportDetailView() {
       </Card>
 
       <Card className="flex flex-col gap-3">
-        <h2 className="text-sm font-semibold text-foreground">
-          AI 해결 방안
-        </h2>
+        <h2 className="text-sm font-semibold text-foreground">AI 해결 방안</h2>
         <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">
           {report.solution}
         </p>

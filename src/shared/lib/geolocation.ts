@@ -17,7 +17,7 @@ export function getCurrentPosition(): Promise<Coordinates> {
           lng: position.coords.longitude,
         }),
       (error) => reject(error),
-      { enableHighAccuracy: true, timeout: 10000 }
+      { enableHighAccuracy: true, timeout: 10000 },
     );
   });
 }
