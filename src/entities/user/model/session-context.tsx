@@ -8,6 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { setUnauthorizedHandler } from "@/shared/api/client";
 import { getMe, logout as logoutApi } from "../api/auth";
 import type { User } from "./types";
 
@@ -51,6 +52,11 @@ export function UserSessionProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true;
     };
+  }, []);
+
+  useEffect(() => {
+    setUnauthorizedHandler(() => setUser(null));
+    return () => setUnauthorizedHandler(null);
   }, []);
 
   const signOut = useCallback(async () => {

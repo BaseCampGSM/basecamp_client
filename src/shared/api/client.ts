@@ -14,6 +14,12 @@ type ApiFetchOptions = Omit<RequestInit, "body"> & {
   body?: unknown;
 };
 
+let onUnauthorized: (() => void) | null = null;
+
+export function setUnauthorizedHandler(handler: (() => void) | null) {
+  onUnauthorized = handler;
+}
+
 export async function apiFetch<T>(
   path: string,
   { body, headers, ...init }: ApiFetchOptions = {},
@@ -29,6 +35,7 @@ export async function apiFetch<T>(
   });
 
   if (!response.ok) {
+    if (response.status === 401) onUnauthorized?.();
     const message = await response.text().catch(() => response.statusText);
     throw new ApiError(response.status, message || response.statusText);
   }
