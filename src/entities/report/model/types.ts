@@ -1,3 +1,5 @@
+import type { Recommendation } from "@/entities/recommendation";
+
 export type Urgency = "LOW" | "MEDIUM" | "HIGH";
 
 export interface ReportSource {
@@ -14,6 +16,7 @@ export interface ReportDetail {
   urgency: Urgency;
   solution: string;
   sources: ReportSource[];
+  recommendations: Recommendation[];
   created_at: string;
 }
 

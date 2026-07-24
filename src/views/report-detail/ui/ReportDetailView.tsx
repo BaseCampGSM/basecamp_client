@@ -5,10 +5,6 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useUser } from "@/entities/user";
 import { getReport, type ReportDetail } from "@/entities/report";
-import {
-  getRecommendations,
-  type Recommendation,
-} from "@/entities/recommendation";
 import { DEFAULT_MAP_CENTER, URGENCY_LABEL } from "@/shared/config/constants";
 import {
   Badge,
@@ -41,7 +37,6 @@ export function ReportDetailView() {
   const { user, isLoading: isUserLoading } = useUser();
 
   const [report, setReport] = useState<ReportDetail | null>(null);
-  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -52,11 +47,10 @@ export function ReportDetailView() {
     }
 
     let cancelled = false;
-    Promise.all([getReport(params.id), getRecommendations(params.id)])
-      .then(([reportResult, recommendationResult]) => {
+    getReport(params.id)
+      .then((reportResult) => {
         if (cancelled) return;
         setReport(reportResult);
-        setRecommendations(recommendationResult);
       })
       .catch(() => {
         if (!cancelled) setError("제보 정보를 불러오지 못했습니다.");
@@ -83,6 +77,7 @@ export function ReportDetailView() {
     );
   }
 
+  const recommendations = report.recommendations;
   const markers: KakaoMapMarker[] = recommendations.map((item, index) => ({
     id: `${item.name}-${index}`,
     lat: item.lat,

@@ -1,11 +1,5 @@
 import { apiFetch } from "@/shared/api/client";
-import type { NearbyPlace, Recommendation } from "../model/types";
-
-export function getRecommendations(reportId: string) {
-  return apiFetch<Recommendation[]>(
-    `/api/v1/recommendations?report_id=${encodeURIComponent(reportId)}`,
-  );
-}
+import type { NearbyPlace } from "../model/types";
 
 export function getNearbyPlaces(params: {
   lat: number;
