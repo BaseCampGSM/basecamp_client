@@ -1,6 +1,5 @@
 import { apiFetch } from "@/shared/api/client";
 import type {
-  AnalyzeReportResult,
   CreateReportInput,
   CreateReportResult,
   ReportDetail,
@@ -20,11 +19,4 @@ export function getReport(reportId: string) {
 
 export function listReports() {
   return apiFetch<ReportListItem[]>("/api/v1/reports");
-}
-
-export function analyzeReport(reportId: string) {
-  return apiFetch<AnalyzeReportResult>("/api/ai/solve-issue", {
-    method: "POST",
-    body: { report_id: reportId },
-  });
 }

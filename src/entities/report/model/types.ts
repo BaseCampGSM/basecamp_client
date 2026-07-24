@@ -36,10 +36,3 @@ export interface CreateReportResult {
   report_id: string;
   status: string;
 }
-
-export interface AnalyzeReportResult {
-  category: string;
-  urgency: Urgency;
-  solution: string;
-  sources: ReportSource[];
-}

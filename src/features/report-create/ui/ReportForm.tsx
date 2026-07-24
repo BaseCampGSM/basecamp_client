@@ -4,15 +4,14 @@ import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Card, Textarea } from "@/shared/ui";
 import type { Coordinates } from "@/shared/lib/geolocation";
-import { analyzeReport, createReport } from "@/entities/report";
+import { createReport } from "@/entities/report";
 import { LocationPicker } from "./LocationPicker";
 
-type Step = "idle" | "submitting" | "analyzing";
+type Step = "idle" | "submitting";
 
 const SUBMIT_LABEL: Record<Step, string> = {
   idle: "AI에게 물어보기",
-  submitting: "제보 접수 중…",
-  analyzing: "AI가 분석하는 중…",
+  submitting: "AI가 분석하는 중…",
 };
 
 export function ReportForm() {
@@ -47,9 +46,6 @@ export function ReportForm() {
         lng: coords.lng,
         address,
       });
-
-      setStep("analyzing");
-      await analyzeReport(created.report_id);
 
       router.push(`/reports/${created.report_id}`);
     } catch {
