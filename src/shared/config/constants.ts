@@ -7,7 +7,7 @@ export const DEFAULT_MAP_CENTER: Coordinates = {
 };
 
 export const URGENCY_LABEL: Record<string, string> = {
-  LOW: "낮음",
-  MEDIUM: "보통",
-  HIGH: "긴급",
+  하: "낮음",
+  중: "보통",
+  상: "긴급",
 };

@@ -1,6 +1,6 @@
 import type { Recommendation } from "@/entities/recommendation";
 
-export type Urgency = "LOW" | "MEDIUM" | "HIGH";
+export type Urgency = "하" | "중" | "상";
 
 export interface ReportSource {
   title: string;

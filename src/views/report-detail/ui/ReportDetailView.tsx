@@ -16,9 +16,9 @@ import {
 } from "@/shared/ui";
 
 const URGENCY_TONE: Record<string, "success" | "warning" | "danger"> = {
-  LOW: "success",
-  MEDIUM: "warning",
-  HIGH: "danger",
+  하: "success",
+  중: "warning",
+  상: "danger",
 };
 
 function formatDate(iso: string) {
