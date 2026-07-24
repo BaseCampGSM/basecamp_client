@@ -23,7 +23,7 @@ export function listReports() {
 }
 
 export function analyzeReport(reportId: string) {
-  return apiFetch<AnalyzeReportResult>("/api/v1/analyze", {
+  return apiFetch<AnalyzeReportResult>("/api/ai/solve-issue", {
     method: "POST",
     body: { report_id: reportId },
   });
