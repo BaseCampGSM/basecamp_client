@@ -47,17 +47,26 @@ export function ReportDetailView() {
     }
 
     let cancelled = false;
-    getReport(params.id)
-      .then((reportResult) => {
-        if (cancelled) return;
-        setReport(reportResult);
-      })
-      .catch(() => {
-        if (!cancelled) setError("제보 정보를 불러오지 못했습니다.");
-      });
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const fetchReport = () => {
+      getReport(params.id)
+        .then((reportResult) => {
+          if (cancelled) return;
+          setReport(reportResult);
+          if (!reportResult.solution) {
+            timer = setTimeout(fetchReport, 3000);
+          }
+        })
+        .catch(() => {
+          if (!cancelled) setError("제보 정보를 불러오지 못했습니다.");
+        });
+    };
+    fetchReport();
 
     return () => {
       cancelled = true;
+      clearTimeout(timer);
     };
   }, [isUserLoading, user, router, params.id]);
 
@@ -77,7 +86,19 @@ export function ReportDetailView() {
     );
   }
 
-  const recommendations = report.recommendations;
+  if (!report.solution) {
+    return (
+      <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 px-4 py-24 text-center">
+        <Spinner className="h-6 w-6" />
+        <p className="text-sm text-muted">
+          AI가 제보를 분석하고 있어요. 잠시만 기다려 주세요.
+        </p>
+      </div>
+    );
+  }
+
+  const recommendations = report.recommendations ?? [];
+  const sources = report.sources ?? [];
   const markers: KakaoMapMarker[] = recommendations.map((item, index) => ({
     id: `${item.name}-${index}`,
     lat: item.lat,
@@ -97,8 +118,8 @@ export function ReportDetailView() {
       <Card className="flex flex-col gap-3">
         <div className="flex flex-wrap items-center gap-2">
           <Badge tone="accent">{report.category}</Badge>
-          <Badge tone={URGENCY_TONE[report.urgency] ?? "neutral"}>
-            긴급도 · {URGENCY_LABEL[report.urgency] ?? report.urgency}
+          <Badge tone={URGENCY_TONE[report.urgency ?? ""] ?? "neutral"}>
+            긴급도 · {URGENCY_LABEL[report.urgency ?? ""] ?? report.urgency}
           </Badge>
           <span className="ml-auto text-xs text-muted">
             {formatDate(report.created_at)}
@@ -166,11 +187,11 @@ export function ReportDetailView() {
 
       <Card className="flex flex-col gap-3">
         <h2 className="text-sm font-semibold text-foreground">출처</h2>
-        {report.sources.length === 0 ? (
+        {sources.length === 0 ? (
           <p className="text-sm text-muted">표시할 출처가 없습니다.</p>
         ) : (
           <ul className="flex flex-col gap-2">
-            {report.sources.map((source, index) => (
+            {sources.map((source, index) => (
               <li key={`${source.url}-${index}`} className="text-sm">
                 <a
                   href={source.url}

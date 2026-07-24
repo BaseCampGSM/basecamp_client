@@ -12,11 +12,12 @@ export interface ReportSource {
 export interface ReportDetail {
   report_id: string;
   text: string;
-  category: string;
-  urgency: Urgency;
-  solution: string;
-  sources: ReportSource[];
-  recommendations: Recommendation[];
+  category: string | null;
+  status: string;
+  urgency?: Urgency;
+  solution?: string;
+  sources?: ReportSource[];
+  recommendations?: Recommendation[];
   created_at: string;
 }
 
