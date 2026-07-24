@@ -5,15 +5,8 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useUser } from "@/entities/user";
 import { getReport, type ReportDetail } from "@/entities/report";
-import { DEFAULT_MAP_CENTER, URGENCY_LABEL } from "@/shared/config/constants";
-import {
-  Badge,
-  Card,
-  EmptyState,
-  KakaoMap,
-  Spinner,
-  type KakaoMapMarker,
-} from "@/shared/ui";
+import { URGENCY_LABEL } from "@/shared/config/constants";
+import { Badge, Card, Spinner } from "@/shared/ui";
 
 const URGENCY_TONE: Record<string, "success" | "warning" | "danger"> = {
   하: "success",
@@ -97,15 +90,6 @@ export function ReportDetailView() {
     );
   }
 
-  const recommendations = report.recommendations ?? [];
-  const sources = report.sources ?? [];
-  const markers: KakaoMapMarker[] = recommendations.map((item, index) => ({
-    id: `${item.name}-${index}`,
-    lat: item.lat,
-    lng: item.lng,
-    title: item.name,
-  }));
-
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6 px-4 py-12">
       <Link
@@ -135,80 +119,6 @@ export function ReportDetailView() {
         <p className="whitespace-pre-line text-sm leading-relaxed text-foreground">
           {report.solution}
         </p>
-      </Card>
-
-      <Card className="flex flex-col gap-4">
-        <h2 className="text-sm font-semibold text-foreground">
-          추천 시설·정책
-        </h2>
-
-        {recommendations.length === 0 ? (
-          <EmptyState title="추천 정보를 찾지 못했어요" />
-        ) : (
-          <>
-            <KakaoMap
-              center={
-                recommendations[0]
-                  ? { lat: recommendations[0].lat, lng: recommendations[0].lng }
-                  : DEFAULT_MAP_CENTER
-              }
-              markers={markers}
-              className="h-64 w-full border border-border"
-            />
-            <ul className="flex flex-col gap-3">
-              {recommendations.map((item, index) => (
-                <li
-                  key={`${item.name}-${index}`}
-                  className="rounded-lg border border-border p-3"
-                >
-                  <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm font-medium text-foreground">
-                      {item.name}
-                    </p>
-                    <Badge>{item.category}</Badge>
-                  </div>
-                  <p className="mt-1 text-xs text-muted">{item.address}</p>
-                  {item.source_url && (
-                    <a
-                      href={item.source_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-1 inline-block text-xs text-accent hover:underline"
-                    >
-                      자세히 보기
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </Card>
-
-      <Card className="flex flex-col gap-3">
-        <h2 className="text-sm font-semibold text-foreground">출처</h2>
-        {sources.length === 0 ? (
-          <p className="text-sm text-muted">표시할 출처가 없습니다.</p>
-        ) : (
-          <ul className="flex flex-col gap-2">
-            {sources.map((source, index) => (
-              <li key={`${source.url}-${index}`} className="text-sm">
-                <a
-                  href={source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-accent hover:underline"
-                >
-                  {source.title}
-                </a>
-                <span className="text-muted">
-                  {" "}
-                  · {source.org} · {formatDate(source.updated_at)} 업데이트
-                </span>
-              </li>
-            ))}
-          </ul>
-        )}
       </Card>
     </div>
   );
